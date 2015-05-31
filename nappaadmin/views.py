@@ -3,6 +3,9 @@ from django.shortcuts import render
 from .forms import FacilityForm, ClientForm, ServiceForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from nappaadmin.models import Client
+from django.shortcuts import render_to_response
+
 #from .forms import ClientForm
 #from .forms import ServiceForm
 
@@ -38,3 +41,13 @@ def service(request):
 	context = {"form" : form}
 	template = "service.html"
 	return render(request, template, context)
+
+def clientlist(request):
+	allclients = Client.objects.all()
+	#for e in allclients:
+		#print(e.code)
+	client_list = {"clients" : allclients}
+		
+	template = "client_list.html"
+	#return render(request, template, context)
+	return render_to_response(template, client_list)

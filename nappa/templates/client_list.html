@@ -1,0 +1,29 @@
+{% extends "base.html"%}
+{% block content %}
+<table class="table table-striped">
+<thead>
+      <tr>
+	    <th>Date</th>
+        <th>Code</th>
+        <th>Client Name</th>
+        <th>M/F/T</th>
+		<th>Age Group</th>
+        <th>Marital Status</th>
+		<th>Health Book</th>
+		<th>Referral</th>
+      </tr>
+    </thead>
+<tbody>
+{% for c in clients %}
+<tr><td>{{c.code}}</td>
+<td>{{c.firstName}} {{c.lastName}}</td>
+<td>{{c.registeredDate}}</td>
+<td>{{c.sex}}</td>
+<td>{{c.age}}</td>
+<td>{{c.maritalStatus}}</td>
+<td>{{c.healthBook}}</td>
+<td>{{c.referral}}</td>
+</tr>
+{% endfor %}
+</tbody>
+{% endblock %}

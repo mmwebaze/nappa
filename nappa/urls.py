@@ -23,6 +23,7 @@ from nappaadmin import views as nappaadmin
 urlpatterns = [
 	url(r'^$', home.home, name='home'),
 	url(r'^facility/$', nappaadmin.facility, name='facility'),
+	url(r'^clientlist/$', nappaadmin.clientlist, name='clientlist'),
 	url(r'^client/$', nappaadmin.client, name='client'),
 	url(r'^service/$', nappaadmin.service, name='service'),
     url(r'^admin/', include(admin.site.urls)),

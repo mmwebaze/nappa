@@ -105,5 +105,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/facility'
+LOGIN_REDIRECT_URL = '/client'
 LOGIN_URL = 'django.contrib.auth.views.login'
