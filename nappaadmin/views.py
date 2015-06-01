@@ -42,6 +42,7 @@ def service(request):
 	template = "service.html"
 	return render(request, template, context)
 
+@login_required
 def clientlist(request):
 	allclients = Client.objects.all()
 	#for e in allclients:

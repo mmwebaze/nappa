@@ -1,8 +1,19 @@
 {% extends "base.html"%}
 
 {% block content %}
-<form method="POST" action="">{% csrf_token %}
-{{form.as_p}}
-<button type="submit" class="btn btn-default">Submit</button>
+ {% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+    {% endif %}
+<form class="form-horizontal" method="POST" action="">{% csrf_token %}
+    <div class="row">
+        <div class="col-xs-6">
+<table class="table table-striped">
+{{form.as_table}}
+</table>
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</div>
 </form>
 {% endblock %}

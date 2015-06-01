@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'nappa_db',
 		'USER': 'postgres',
-        'PASSWORD': '4g3t1t',
+        'PASSWORD': 'dhis2',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
