@@ -62,3 +62,24 @@ class ServiceReceived(models.Model):
 	
 	def __unicode__(self):
 		return "%s" %(self.clientCode)
+
+class FamilyPlanningCard(models.Model):
+	clientCode = models.ForeignKey(Client)
+	gravidity = models.IntegerField()
+	parity = models.IntegerField()
+	dateSeen = models.DateField()
+	method = models.CharField(max_length=10)
+	bp = models.CharField(max_length=10)
+	weight = models.DecimalField(max_digits=3, decimal_places=2)
+	lnmp = models.IntegerField()
+	followUpDate = models.DateField()
+	comments = models.CharField(max_length=500)
+	
+	def __unicode__(self):
+		return "%s %s" %(self.id, self.clientCode)
+
+class FamilyPlanningMethod(models.Model):
+	methodName = models.CharField(max_length=30)
+	
+	def __unicode__(self):
+		return "%s" %(self.methodName)

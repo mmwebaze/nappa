@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 from django.contrib import admin
+from django import forms
 from nappaadmin.models import Facility
 from nappaadmin.models import Client
-from .models import Service, ServiceReceived
+from .models import Service, ServiceReceived, FamilyPlanningCard
 
 class FacilityAdmin(admin.ModelAdmin):
 	list_display = ['__unicode__', 'code', 'name', 'description']
@@ -24,8 +25,19 @@ class ServiceReceivedAdmin(admin.ModelAdmin):
 	class Meta:
 		model = ServiceReceived
 
+class FamilyPlanningCardForm(forms.ModelForm):
+	comments = forms.CharField(widget=forms.Textarea)
+	
+	class Meta:
+		model = FamilyPlanningCard
+		fields = "__all__" 
+
+class FamilyPlanningCardAdmin(admin.ModelAdmin):
+	form = FamilyPlanningCardForm
+
 		# Register your models here.
 admin.site.register(Facility, FacilityAdmin)
 admin.site.register(Client, ClientAdmin)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(ServiceReceived, ServiceReceivedAdmin)
+admin.site.register(FamilyPlanningCard, FamilyPlanningCardAdmin)
