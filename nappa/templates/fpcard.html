@@ -1,21 +1,24 @@
 {% extends "base.html"%}
 {% block content %}
-<h1>Family Planning Card</h1>
-<form class="form-horizontal" method="POST" action="">{% csrf_token %}
-    <div class="row">
-        <div class="col-xs-6">
-<table class="table table-striped">
-{{form.as_table}}
+<div class="well">
+<div class="form-group">
+{{ searchform.subject.errors }}
+{% csrf_token %}
+        <label for="clientcode">Client code:</label>
+        {{ searchform.clientcode }}
+</div>
+<div class="form-group">
+<button id="searchbtn" type="submit" class="btn btn-primary">Submit</button>
+</div>
+</div>
+<div class="row">
+<table id="search-results" class="table table-striped">
+
 </table>
-<button type="submit" class="btn btn-primary">Submit</button>
 </div>
+<div id="history" class="row">
+
 </div>
-</form>
- {% if form.errors %}
-        <p style="color: red;">
-            Please correct the error{{ form.errors|pluralize }} above.
-        </p>
-    {% endif %}
 	<script>
 $(document).ready(function() {
 	 
@@ -24,6 +27,26 @@ $(document).ready(function() {
 		format: "yyyy-mm-dd",
 		autoclose: true
 	});
+    $( "#searchbtn" ).click(function() {
+    	console.log($("#id_clientcode").val())
+    	$.ajax({
+    		type: "POST",
+    		url: "/search/",
+    		 data: { 
+    			 'search_text' : $("#id_clientcode").val(),
+    			 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+    			 },
+    			 success: searchSuccess,
+    			 dataType: 'html'
+            
+        });
+    	//$("#d").text($("#id_clientcode").val());
+    });
+    
+    function searchSuccess(data, textStatus, jqXHR){
+    	$('#search-results').html(data)
+    }
 });
+
 </script>
 {% endblock %}

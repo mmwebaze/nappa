@@ -1,0 +1,17 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="row">
+	<div>
+	<table class="table table-striped">
+	<tr><td>Name</td><td>{{clients.firstName}}&nbsp;{{clients.lastName}}</td><td>Card No</td><td>&nbsp;</td></tr>
+	<tr><td>DOB</td><td>&nbsp;</td><td>Gravity</td><td>&nbsp;</td></tr>
+	<tr><td>Address</td><td>&nbsp;</td><td>Parity</td><td>&nbsp;</td></tr>
+	</table>
+	</div>
+</div>
+<div class="row">
+{% for fp in fp %}
+ {{fp.gravidity}}
+{% endfor %}
+</div>
+{% endblock %}

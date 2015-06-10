@@ -1,0 +1,8 @@
+{% if clients.count > 0 %}
+<tr><th>Client Code</th><th>First Name</th><th>Last Name</th></tr>
+{% for c in clients %}
+	<tr><td><a href="/singleclient/{{c.code}}" class="btn btn-info" role="button" id={{c.code}}>{{c.code}}</a></td><td>{{c.firstName}}</td><td>{{c.lastName}}</td></tr>
+{% endfor %}
+{% else %}
+<tr><td>No clients found</td></tr>
+{% endif %}

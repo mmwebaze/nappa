@@ -33,20 +33,6 @@ class Facility(models.Model):
 	def __unicode__(self):
 		return "%s" %(self.code + " "+self.name)
 		
-class Client(models.Model):
-	code = models.CharField(max_length=12, primary_key=True)
-	firstName = models.CharField(max_length=30)
-	lastName = models.CharField(max_length=30)
-	registeredDate = models.DateTimeField(auto_now_add = True, auto_now = False)
-	sex = models.CharField(max_length=1, choices=SEX_CHOICES, default = "F")
-	age = models.IntegerField(default=0)
-	maritalStatus = models.CharField(max_length=1, choices=MARITAL_STATUS, default = "1")
-	healthBook = models.CharField(max_length=1, choices=HEALTH_BOOK, default = "Y")
-	referral =  models.CharField(max_length=30)
-	
-	def __unicode__(self):
-		return "%s" %(self.code)
-		
 class Service(models.Model):
 	code = models.CharField(max_length=12, primary_key=True)
 	name = models.CharField(max_length=30)
@@ -54,6 +40,24 @@ class Service(models.Model):
 	
 	def __unicode__(self):
 		return "%s" %(self.code)
+        
+class Client(models.Model):
+    code = models.CharField(max_length=12, primary_key=True)
+    cardNo = models.CharField(max_length=30)
+    firstName = models.CharField(max_length=30)
+    lastName = models.CharField(max_length=30)
+    gravidity = models.IntegerField()
+    parity = models.IntegerField()
+    address = models.CharField(max_length=30)
+    registeredDate = models.DateTimeField(auto_now_add = True, auto_now = False)
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default = "F")
+    age = models.IntegerField(default=0)#to become DOB
+    maritalStatus = models.CharField(max_length=1, choices=MARITAL_STATUS, default = "1")
+    healthBook = models.CharField(max_length=1, choices=HEALTH_BOOK, default = "Y")
+    referral =  models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return "%s" %(self.code)
 
 class ServiceReceived(models.Model):
 	clientCode = models.ForeignKey(Client)
@@ -63,10 +67,8 @@ class ServiceReceived(models.Model):
 	def __unicode__(self):
 		return "%s" %(self.clientCode)
 
-class FamilyPlanningCard(models.Model):
+class ClientVisit(models.Model):
 	clientCode = models.ForeignKey(Client)
-	gravidity = models.IntegerField()
-	parity = models.IntegerField()
 	dateSeen = models.DateField()
 	method = models.CharField(max_length=10)
 	bp = models.CharField(max_length=10)

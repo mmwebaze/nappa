@@ -1,0 +1,89 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="page-header">
+<h3><small>NAPPA FAMILY PLANNING CARD</small></h3>
+</div>
+<div class="row">
+	<div>
+	<table class="table table-striped">
+	<tr><td>Name</td><td>{{clients.firstName}}&nbsp;{{clients.lastName}}</td><td>Card No</td><td>&nbsp;{{clients.cardNo}}</td></tr>
+	<tr><td>DOB</td><td>&nbsp;</td><td>Gravity</td><td>&nbsp;{{clients.gravidity}}</td></tr>
+	<tr><td>Address</td><td>&nbsp;{{clients.address}}</td><td>Parity</td><td>&nbsp;{{clients.parity}}</td></tr>
+	</table>
+	</div>
+</div>
+<div class="row" >
+{% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} above.
+        </p>
+ {% endif %}
+ <input type="hidden" id="clientCode" value={{clients.code}} />
+<form class="form-inline" method="POST" id="addrecord">{% csrf_token %}
+<!-- <input id="id_clientCode" name="clientCode" type="hidden" value={{clients.code}}/> -->
+<div class="form-group">
+<label for="dateSeen">Date Seen:</label>{{form.dateSeen}}
+<label for="method">Method:</label>{{form.method}}
+<label for="bp">BP:</label>{{form.bp}}
+<label for="weight">Weight:</label>{{form.weight}}
+<label for="lnmp">LNMP:</label>{{form.lnmp}}
+<label for="followUpDate">Follow-up Date:</label>{{form.followUpDate}}
+<label for="comments">Comments:</label>{{form.comments}}
+<input type="hidden" name="clientid" value={{clients.code}} id="clientid">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</form>
+
+</div>
+{% if clientVisitHistory.count > 0 %}
+<div class="row">
+<h3>History : {{clients.firstName}}&nbsp;{{clients.lastName}}</h2>
+<table class="table table-striped">
+<tr>
+    <th>Date Seen</th><th>Method</th><th>BP</th><th>Weight</th><th>LNMP</th><th>Follow-up Date</th><th>Comments</th>
+  </tr>
+{% for fp in clientVisitHistory %}
+ <tr><td>{{fp.dateSeen}}</td><td>{{fp.method}}</td><td>{{fp.bp}}</td><td>{{fp.weight}}</td><td>{{fp.lnmp}}</td><td>{{fp.followUpDate}}</td><td>{{fp.comments}}</td></tr>
+{% endfor %}
+{% else %}
+<table class="table table-striped">
+<tr><td>No history of family planning for {{clients.firstName}}&nbsp;{{clients.lastName}}</td><td><button id={{clients.code}} type="button" class="btn btn-primary">Add Record</button></td></tr>
+
+{% endif %}
+</table>
+</div>
+<div id="form_record">
+
+</div>
+<script>
+$(document).ready(function(){
+
+	$("#addrecord").submit(function(event) {
+		event.preventDefault();
+		$.ajax({
+    		type: 'POST',
+    		url: "/addrecord/"+$("#clientCode").val(),
+    		data: {	
+    		//'clientCode' : $("#id_clientCode").val(),
+    		'dateSeen' : $("#id_dateSeen").val(),
+   			 'method' : $("#id_method").val(),
+   			 'bp' : $("#id_bp").val(),
+   			'weight' : $("#id_weight").val(),
+   			'lnmp' : $("#id_lnmp").val(),
+  			 'followUpDate' : $("#id_followUpDate").val(),
+  			 'comments' : $("#id_comments").val(),
+   			 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+   			 },
+    		dataType: 'html',
+    		
+   			success: function(data){
+   				
+    		},
+		error: function(){
+			alert("Sorry, The requested property could not be found.");
+		}
+		});
+	});
+});
+</script>
+{% endblock %}
