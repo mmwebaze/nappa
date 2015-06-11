@@ -20,24 +20,44 @@
  {% endif %}
  <input type="hidden" id="clientCode" value={{clients.code}} />
 <form class="form-inline" method="POST" id="addrecord">{% csrf_token %}
-<!-- <input id="id_clientCode" name="clientCode" type="hidden" value={{clients.code}}/> -->
+<div class="row">
 <div class="form-group">
+<div class="col-md-3">
 <label for="dateSeen">Date Seen:</label>{{form.dateSeen}}
-<label for="method">Method:</label>{{form.method}}
-<label for="bp">BP:</label>{{form.bp}}
-<label for="weight">Weight:</label>{{form.weight}}
-<label for="lnmp">LNMP:</label>{{form.lnmp}}
-<label for="followUpDate">Follow-up Date:</label>{{form.followUpDate}}
-<label for="comments">Comments:</label>{{form.comments}}
-<input type="hidden" name="clientid" value={{clients.code}} id="clientid">
-<button type="submit" class="btn btn-primary">Submit</button>
 </div>
+</div>
+<div class="form-group">
+<div class="col-md-3">
+<label for="method">Method:</label>{{form.method}}
+</div></div><div class="form-group">
+<div class="col-md-3">
+<label for="bp">BP:</label>{{form.bp}}
+</div></div><div class="form-group">
+<div class="col-md-3">
+<label for="weight">Weight:</label>{{form.weight}}
+</div></div></div><div class="row">
+<div class="form-group">
+<div class="col-md-3">
+<label for="lnmp">LNMP:</label>{{form.lnmp}}
+</div></div>
+<div class="form-group">
+<div class="col-md-3">
+<label for="followUpDate">Follow-up Date:</label>{{form.followUpDate}}
+</div></div><div class="form-group">
+<div class="col-md-3">
+<label for="comments">Comments:</label>{{form.comments}}
+</div></div><div class="form-group">
+<div class="col-md-3">
+<input type="hidden" name="clientid" value={{clients.code}} id="clientid">
+</div></div><div class="form-group"><div class="col-md-3">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div></div></div>
 </form>
 
 </div>
 {% if clientVisitHistory.count > 0 %}
 <div class="row">
-<h3>History : {{clients.firstName}}&nbsp;{{clients.lastName}}</h2>
+<h3>History : <small>{{clients.firstName}}&nbsp;{{clients.lastName}}</small></h2>
 <table class="table table-striped">
 <tr>
     <th>Date Seen</th><th>Method</th><th>BP</th><th>Weight</th><th>LNMP</th><th>Follow-up Date</th><th>Comments</th>
